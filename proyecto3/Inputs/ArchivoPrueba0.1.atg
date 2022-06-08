@@ -1,0 +1,50 @@
+COMPILER ArchivoPrueba0
+
+CHARACTERS
+
+digito = "0123456789".
+D = "D".
+
+TOKENS
+
+numeroToken = digito{digito}.
+IGNORE = CHR(9) + CHR(10) + CHR(13) + CHR(20).
+
+PRODUCTIONS
+
+EstadoInicial = {Instruccion ";"}
+	.
+
+Instruccion =									(. resultado = 0 .)
+	Expresion <resultado>						(. print("Resultado: " + str(resultado)) .)
+	.
+
+Expresion <resultado> =							(. resultado1, resultado2 = 0, 0 .)
+	Termino <resultado1>
+	{		"+" Termino <resultado2>			(. resultado1 += resultado2 .)
+												(. print("Término: " + str(resultado1)) .)
+		|
+			"suma" Termino <resultado2>			(. resultado1 += resultado2 .)
+												(. print("Término: " + str(resultado1)) .)										
+	}											(. resultado = resultado1 .)
+												(. print("Término: " + str(resultado)) .)
+	.
+
+Termino <resultado> =							(. resultado1, resultado2 = 0, 0 .)
+	Factor <resultado1>
+	{		"*" Factor <resultado2>				(. resultado1 *= resultado2 .) 
+												(. print("Término: " + str(resultado1)) .)
+	}											(. resultado = resultado1 .)
+												(. print("Factor: " + str(resultado)) .)
+	.
+
+Factor <resultado> =							(. resultado1 = 0 .)
+	Numero <resultado1>							(. resultado = resultado1 .)
+												(. print("Número: " + str(resultado)) .)
+	.
+
+Numero <resultado> = numeroToken				(. resultado = int(self.last_token.value) .)
+												(. print("Token: " + str(resultado)) .)
+	.
+
+END ArchivoPrueba0
