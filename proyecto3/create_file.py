@@ -4,7 +4,7 @@ def create_file_compiler(dfa, extras, parser, data = 'productions'):
     print("Se genero el archivo con el nombre %s.py"%data)
     i = 0
     file_name = open("./Outputs/" + data + ".py", "w+", encoding="utf-8")
-    file_name.write('# Este es el scanner que se generara con las reglas establecidas por ./Inputs/%s.ATG\n\n' % data)
+    file_name.write('# Este es el scanner que se generara con las reglas establecidas por ./Inputs/%s.atg\n\n' % data)
 
     file_name.write('import os\n')
     file_name.write('import sys\n')
